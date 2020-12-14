@@ -5,6 +5,7 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import aws from "./config";
+import Amplify from 'aws-amplify';
 
 //Initialize AWS Amplify.
 Amplify.configure({
