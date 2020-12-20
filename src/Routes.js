@@ -5,6 +5,7 @@ import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
 import Error from "./Error/Error";
 import AppliedRoute from "./AppliedRoute";
+import NewInkd from "./NewInkd/NewInkd";
 
 export default function Routes({ appProps }) {
   return ( 
@@ -16,6 +17,9 @@ export default function Routes({ appProps }) {
     <Route exact path="/signup">
       <Signup />
     </Route>    
+    <Route exact path="/inkd/create">
+      <NewInkd />
+    </Route>   
     <Route component={Error} /> 
   </Switch>
   );
