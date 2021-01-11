@@ -10,7 +10,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory(); //History from Router.
 
-  const { setAuthState } = useAppContext();
+  const { userHasAuthenticated } = useAppContext();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
@@ -24,7 +24,7 @@ export default function Login() {
     setIsLoading(true);
     try {
       await Auth.signIn(email, pass);
-      setAuthState(true);
+      userHasAuthenticated(true);
       console.log("Logged in with " + email);
       history.push("/"); //to default page
     } catch (ex) {

@@ -18,36 +18,36 @@ export default function App() {
 
   async function handleLogout() {
     await Auth.signOut(); //Clears the login cookies.
-    setAuthState(false);
+    userHasAuthenticated(false);
+    console.log("auth is " + isAuthenticated);
     history.push("/login");
   }
   
   //Storing login from the topdown.
-  const [getLoadingAuthState, setLoadingAuthState] = useState(true);
-  const [getAuthState, setAuthState] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
 
   //Loading session cookies.
   useEffect(() => {
-    onLoading();
+    onLoad();
   }, []);
   
-  async function onLoading() { //load whether the user is authenticated via Amplify
+  async function onLoad() {
     try {
       await Auth.currentSession();
-      console.log("Already logged in!")
-      setAuthState(true);
+      userHasAuthenticated(true);
     }
     catch(e) {
-      if (e !== 'No current user') {
-        errorLibrary(e);
+      if (e !== 'No user logged in.') {
+        alert(e);
       }
     }
   
-    setLoadingAuthState(false); 
+    setIsAuthenticating(false);
   }
 
   return (
-    !getLoadingAuthState && (
+    !isAuthenticating && (
       <div className="App container py-3">
         <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
           <LinkContainer to="/">
@@ -58,7 +58,7 @@ export default function App() {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Nav activeKey={window.location.pathname}>
-              {getAuthState ? (
+              {isAuthenticated ? (
                 <NavItem onClick={handleLogout}>Logout</NavItem>
               ) : (
                 <>
@@ -73,7 +73,7 @@ export default function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <AppContext.Provider value={{ getAuthState, setAuthState }}>
+        <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
           <Routes />
         </AppContext.Provider>
       </div>

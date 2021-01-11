@@ -41,6 +41,7 @@ export default function NewInkd() {
       const attachedFile = file.current ? await S3UploadMiddleware(file) : null;
 
       await createInkd({body, attachedFile});
+      console.log("The body is " + body);
       console.log("An Inkd is created!");
       history.push("/");
     } catch (e) {

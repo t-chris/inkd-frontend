@@ -4,18 +4,18 @@ import { BsArrowRepeat } from "react-icons/bs";
 import "./LoadingButton.css";
 
 export default function LoadingButton({
-  loadingBool,
+  isLoading,
   className = "",
   disabled = false,
   ...props
 }) {
   return (
     <Button
-      disabled={disabled || loadingBool}
+      disabled={disabled || isLoading}
       className={`LoadingButton ${className}`}
       {...props}
     >
-      {loadingBool && <BsArrowRepeat className="spinning" />}
+      {isLoading && <BsArrowRepeat className="spinning" />}
       {props.children}
     </Button>
   );
